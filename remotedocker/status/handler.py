@@ -13,6 +13,7 @@ class StatusWebHandler:
 		web_app.router.add_get(r"/docker/{status_command}", self.status)
 
 	async def status(self, request):
+		# Could send multiple commands in the future
 		command = request.match_info["status_command"]
 		response = await self.StatusWebservice.run_status_command(command)
 		if response is False:

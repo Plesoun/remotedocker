@@ -21,8 +21,23 @@ class StatusWebservice(asab.Service):
 
 
 	def parse_command_output(command: str, result: Object):
-		parse_matrix = {
-		"ps": "neco",
-		"images": "necotaky",
-		}
-		pass
+		parsed_result = []
+		if command == "ps":
+			for container_object in result:
+				parsed_result.append({
+									"name": container_object.name,
+									"entrypoint": container_object.args,
+									"restart_count": container_object.restart_count,
+									"mounts": [{"name": mount.name,
+												"type": mount.type,
+												"source": mount.source,
+												"destination": mount.destination,
+												"mode": mount.mode} for mount in container_object.mounts
+												]
+									}
+				)
+		if command == "images":
+			return {"result": "not implemented"}
+
+		else:
+			return False
