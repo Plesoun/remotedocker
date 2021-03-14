@@ -6,7 +6,7 @@ L = logging.getLogger(__name__)
 
 class StatusWebservice(asab.Service):
 	def __init__(self, app, service_name="status.StatusWebservice"):
-		super().__init__(app, service_name):
+		super().__init__(app, service_name)
 
 
 	async def run_status_command(self, command: str):
@@ -20,7 +20,7 @@ class StatusWebservice(asab.Service):
 		return parsed_result
 
 
-	def parse_command_output(command: str, result: Object):
+	def parse_command_output(command: str, result: list):
 		parsed_result = []
 		if command == "ps":
 			for container_object in result:
