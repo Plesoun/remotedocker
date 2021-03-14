@@ -16,28 +16,29 @@ class StatusWebservice(asab.Service):
 		}
 
 		result = command_matrix.get(command, None)
-		parsed_result = self.parse_command_output(command, result)
+		parsed_result = parse_command_output(command, result)
 		return parsed_result
 
 
-	def parse_command_output(command: str, result: list):
-		parsed_result = []
-		if command == "ps":
-			for container_object in result:
-				parsed_result.append({
-									"name": container_object.name,
-									"entrypoint": container_object.args,
-									"restart_count": container_object.restart_count,
-									"mounts": [{"name": mount.name,
-												"type": mount.type,
-												"source": mount.source,
-												"destination": mount.destination,
-												"mode": mount.mode} for mount in container_object.mounts
-												]
-									}
-				)
-		if command == "images":
-			return {"result": "not implemented"}
+def parse_command_output(command: str, result: list):
+	parsed_result = []
+	if command == "ps":
+		for container_object in result:
+			parsed_result.append({
+								"name": container_object.name,
+								"entrypoint": container_object.args,
+								"restart_count": container_object.restart_count,
+								"mounts": [{"name": mount.name,
+											"type": mount.type,
+											"source": mount.source,
+											"destination": mount.destination,
+											"mode": mount.mode} for mount in container_object.mounts
+											]
+								}
+			)
+	return parsed_result
+	if command == "images":
+		return {"result": "not implemented"}
 
-		else:
-			return False
+	else:
+		return False
