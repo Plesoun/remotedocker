@@ -18,6 +18,8 @@ class ManageWebservice(asab.Service):
 			result = await self.ProactorService.execute(docker.start, parsed_arguments)
 		elif command == "stop":
 			result = await self.ProactorService.execute(docker.stop, parsed_arguments)
+		elif command == "remove":
+			result = await self.ProactorService.execute(docker.remove)
 		else:
 			pass
 		if result is None:
