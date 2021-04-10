@@ -10,7 +10,7 @@ class ManageWebservice(asab.Service):
 		self.ProactorService = app.get_service("asab.ProactorService")
 
 
-	async def run_manage_command(self, command: str, arguments: str):
+	async def run_manage_cli_command(self, command: str, arguments: str):
 		parsed_arguments = arguments
 		if command == "run":
 			pass
@@ -25,3 +25,6 @@ class ManageWebservice(asab.Service):
 		if result is None:
 			return {"response": "OK"}
 		return False
+
+	async def run_manage_cli_command(self, command: str, arguments: str):
+		return {"response": "Not Implemented"}
