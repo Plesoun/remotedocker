@@ -6,7 +6,7 @@ L = logging.getLogger(__name__)
 
 class RemoteDockerApp(asab.Application):
 	def __init__(self):
-		super().__init__()		
+		super().__init__()
 		import asab.web
 		self.add_module(asab.web.Module)
 		import asab.proactor
@@ -24,3 +24,7 @@ class RemoteDockerApp(asab.Application):
 		from .manage import ManageWebHandler, ManageWebservice
 		self.ManageWebservice = ManageWebservice(self)
 		self.ManageWebHandler = ManageWebHandler(self, self.ManageWebservice)
+
+		from .run import RunWebHandler, RunWebservice
+		self.RunWebservice = RunWebservice(self)
+		self.RunWebHandler = RunWebHandler(self, self.RunWebservice)
