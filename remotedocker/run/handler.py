@@ -19,7 +19,7 @@ class RunWebHandler:
 		'entrypoint_commands': {'type': 'object'}
 	}})
 	async def run_cli(self, request, *, json_data):
-		print(json_data)
+		self.RunWebservice.run(json_data, mode="cli")
 		return asab.web.rest.json_response(request, {"result": "OK"})
 
 
@@ -30,5 +30,5 @@ class RunWebHandler:
 		'entrypoint_commands': {'type': 'object'}
 	}})
 	async def run_api(self, request):
-		print(json_data)
+		self.RunWebservice.run(json_data, mode="api")
 		return asab.web.rest.json_response(request, {"result": "OK"})
