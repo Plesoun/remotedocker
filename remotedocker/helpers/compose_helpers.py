@@ -1,5 +1,6 @@
 import yaml
 import logging
+import subprocess
 
 L = logging.getLogger(__name__)
 
@@ -19,7 +20,18 @@ class DockerCompose:
 		return self.docker_compose
 
 	def docker_compose_up(self, parameters: list):
-		pass
+		if self.compose_path:
+			capture_output = subprocess.run(
+								["docker-compose", "-f", compose_path, "up", "-d"],
+								capture_output=True
+								)
+			return {"docker-compose-return-code": capture_output.returncode}
+		else:
+			capture_output = subprocess.run(
+								["docker-compose", "-f", "docker-compose.yaml", "up", "-d"],
+								capture_output=True
+								)
+			return {"docker-compose-return-code": capture_output.returncode}
 
 	def docker_compose_append(self, to_append: dict):
 		self.docker_compose["services"].update(to_append)
