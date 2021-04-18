@@ -25,7 +25,7 @@ class DockerCompose:
 		self.docker_compose["services"].update(to_append)
 
 	def docker_compose_remove(self, to_remove: str):
-		pass
+		self.docker_compose["services"].pop(to_remove)
 
 	def docker_compose_persist(self):
 		with open(self.compose_path, "w") as file:
