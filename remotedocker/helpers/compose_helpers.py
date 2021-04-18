@@ -19,7 +19,6 @@ class DockerCompose:
 
 	def docker_compose_append(self, to_append: dict):
 		if validate_append(to_append):
-			print("hhhhh")
 			self.docker_compose["services"].update(to_append)
 		else:
 			raise ValueError("Invalid append specified")
