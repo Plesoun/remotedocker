@@ -19,7 +19,7 @@ class DockerCompose:
 	def docker_compose_list_current(self):
 		return self.docker_compose
 
-	def docker_compose_up(self, parameters: list):
+	def docker_compose_up(self):
 		if self.compose_path:
 			capture_output = subprocess.run(
 								["docker-compose", "-f", compose_path, "up", "-d"],
