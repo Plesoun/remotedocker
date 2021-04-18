@@ -22,7 +22,7 @@ class DockerCompose:
 		pass
 
 	def docker_compose_append(self, to_append: dict):
-		pass
+		self.docker_compose["services"].update(to_append)
 
 	def docker_compose_remove(self, to_remove: str):
 		pass
