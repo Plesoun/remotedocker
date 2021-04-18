@@ -34,3 +34,52 @@ class TestDockerComposeHelpers(unittest.TestCase):
 												}
 								}
 							)
+
+	def test_list_current(self):
+		self.assertEqual(
+							self.docker_compose_class_instance_empty.docker_compose_list_current(),
+		 					{
+								'version': '3.8',
+								'services': {}
+								}
+							)
+
+		self.assertEqual(
+							self.docker_compose_class_instance_full.docker_compose_list_current(),
+		 					{
+								'version': '3.8',
+								'services': {
+												'sup_bro':{
+															'image': 'hello-world',
+															'container_name': 'howdy',
+															'network_mode': 'host'
+															}
+												}
+								}
+							)
+
+	def test_append(self):
+		self.assertRaises(ValueError, self.docker_compose_class_instance_empty.docker_compose_append, "wrong_input")
+
+		self.assertRaises(ValueError, self.docker_compose_class_instance_empty.docker_compose_append,
+							{
+											'sup_bro':{
+														'container_name': 'howdy',
+														'network_mode': 'host'
+														}
+											}
+						)
+
+		self.assertRaises(ValueError, self.docker_compose_class_instance_empty.docker_compose_append,
+							{
+											'image': 'hello-world'
+											}
+						)
+
+		self.assertEqual(
+							self.docker_compose_class_instance_empty.docker_compose_append(),
+		 					{
+								'version': '3.8',
+								'services': {}
+								}
+							)
