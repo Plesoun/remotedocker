@@ -10,7 +10,10 @@ class DockerCompose:
 			with open(self.compose_path) as file:
 				self.docker_compose = yaml.load(file, Loader=yaml.FullLoader)
 		else:
-			self.docker_compose = {}
+			self.docker_compose = {
+									'version': '3.8',
+									'services': {}
+									}
 
 	def docker_compose_list_current(self):
 		return self.docker_compose
