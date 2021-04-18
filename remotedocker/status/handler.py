@@ -5,6 +5,7 @@ import asab.web.rest
 
 L = logging.getLogger(__name__)
 
+
 class StatusWebHandler:
 	def __init__(self, app, svc):
 		self.StatusWebservice = svc

@@ -7,11 +7,11 @@ from ..helpers import prepare_entrypoint_command
 
 L = logging.getLogger(__name__)
 
+
 class RunWebservice(asab.Service):
 	def __init__(self, app, service_name="status.RunWebservice"):
 		super().__init__(app, service_name)
 		self.ProactorService = app.get_service("asab.ProactorService")
-
 
 	def run(self, json_data, mode=None):
 		print(json_data)

@@ -4,11 +4,11 @@ from python_on_whales import docker
 
 L = logging.getLogger(__name__)
 
+
 class ManageWebservice(asab.Service):
 	def __init__(self, app, service_name="status.ManageWebservice"):
 		super().__init__(app, service_name)
 		self.ProactorService = app.get_service("asab.ProactorService")
-
 
 	async def run_manage_cli_command(self, command: str, arguments: str):
 		parsed_arguments = arguments

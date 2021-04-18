@@ -45,10 +45,12 @@ class DockerCompose:
 			)
 			return {"docker-compose-return-code": capture_output.returncode}
 
+
 def depth(d):
 	if isinstance(d, dict):
 		return 1 + (max(map(depth, d.values())) if d else 0)
 	return 0
+
 
 def validate_append(to_append: dict):
 	if depth(to_append) >= 2:
