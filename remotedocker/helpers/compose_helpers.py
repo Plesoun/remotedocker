@@ -19,9 +19,10 @@ class DockerCompose:
 
 	def docker_compose_append(self, to_append: dict):
 		if validate_append(to_append):
+			print("hhhhh")
 			self.docker_compose["services"].update(to_append)
 		else:
-			pass
+			raise ValueError("Invalid append specified")
 
 	def docker_compose_remove(self, to_remove: str):
 		self.docker_compose["services"].pop(to_remove)
@@ -44,9 +45,13 @@ class DockerCompose:
 			)
 			return {"docker-compose-return-code": capture_output.returncode}
 
+def depth(d):
+	if isinstance(d, dict):
+		return 1 + (max(map(depth, d.values())) if d else 0)
+	return 0
 
 def validate_append(to_append: dict):
-	if isinstance(to_append, dict):
+	if depth(to_append) >= 2:
 		for key in to_append.keys():
 			if "image" in to_append[key].keys():
 				return True

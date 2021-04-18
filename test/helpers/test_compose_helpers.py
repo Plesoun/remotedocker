@@ -74,15 +74,16 @@ class TestDockerComposeHelpers(unittest.TestCase):
 		)
 
 	def test_append(self):
-		self.assertEqual(
-			self.docker_compose_class_instance_empty.docker_compose_append(
-				to_append={
-					"the_other": {
-						"image": "hello-world",
-						"container_name": "uaaa",
-					}
+		self.docker_compose_class_instance_empty.docker_compose_append(
+			to_append={
+				"the_other": {
+					"image": "hello-world",
+					"container_name": "uaaa",
 				}
-			),
+			}
+		)
+		self.assertEqual(
+			self.docker_compose_class_instance_empty.docker_compose_list_current(),
 			{
 				"version": "3.8",
 				"services": {
