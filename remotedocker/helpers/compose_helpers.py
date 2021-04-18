@@ -5,7 +5,7 @@ import subprocess
 L = logging.getLogger(__name__)
 
 class DockerCompose:
-	def __init__(compose_path=None):
+	def __init__(self, compose_path=None):
 		self.compose_path = compose_path
 		if self.compose_path:
 			with open(self.compose_path) as file:
@@ -26,6 +26,7 @@ class DockerCompose:
 								capture_output=True
 								)
 			return {"docker-compose-return-code": capture_output.returncode}
+
 		else:
 			capture_output = subprocess.run(
 								["docker-compose", "-f", "docker-compose.yaml", "up", "-d"],
