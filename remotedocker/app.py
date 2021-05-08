@@ -6,8 +6,8 @@ L = logging.getLogger(__name__)
 
 
 class RemoteDockerApp(asab.Application):
-	def __init__(self):
-		super().__init__()
+	def __init__(self, args=None):
+		super().__init__(args=args)
 		import asab.web
 
 		self.add_module(asab.web.Module)
@@ -36,3 +36,9 @@ class RemoteDockerApp(asab.Application):
 
 		self.RunWebservice = RunWebservice(self)
 		self.RunWebHandler = RunWebHandler(self, self.RunWebservice)
+
+
+# service muze mit vic objektu
+		from .compose import DockerComposeService
+
+		self.DockerCompose = DockerComposeService(self)

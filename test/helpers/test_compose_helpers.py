@@ -1,22 +1,16 @@
 import unittest
+from .testcase import TestCase
 
-from remotedocker.helpers.compose_helpers import DockerCompose, validate_append
+from remotedocker.compose.service import DockerComposeService, validate_append
 import os
 
 
-class TestDockerComposeHelpers(unittest.TestCase):
-	def setUp(self):
-		self.docker_compose_class_instance_empty = DockerCompose()
-		self.docker_compose_class_instance_full = DockerCompose(
-			compose_path="{}/test/helpers/docker-compose.yaml".format(os.getcwd())
-		)
-
-	def tearDown(self):
-		print("Tearing down DockerCompose test")
+class TestDockerComposeHelpers(TestCase):
 
 	def test_compose_validity(self):
+		print(self.App.DockerCompose)
 		self.assertEqual(
-			self.docker_compose_class_instance_empty.docker_compose,
+			self.App.docker_compose,
 			{"version": "3.8", "services": {}},
 		)
 
@@ -36,12 +30,12 @@ class TestDockerComposeHelpers(unittest.TestCase):
 
 	def test_list_current(self):
 		self.assertEqual(
-			self.docker_compose_class_instance_empty.docker_compose_list_current(),
+			self.docker_compose_class_instance_empty.list_current(),
 			{"version": "3.8", "services": {}},
 		)
 
 		self.assertEqual(
-			self.docker_compose_class_instance_full.docker_compose_list_current(),
+			self.docker_compose_class_instance_full.list_current(),
 			{
 				"version": "3.8",
 				"services": {
@@ -63,18 +57,18 @@ class TestDockerComposeHelpers(unittest.TestCase):
 
 		self.assertRaises(
 			ValueError,
-			self.docker_compose_class_instance_empty.docker_compose_append,
+			self.docker_compose_class_instance_empty.append,
 			{"sup_bro": {"container_name": "howdy", "network_mode": "host"}},
 		)
 
 		self.assertRaises(
 			ValueError,
-			self.docker_compose_class_instance_empty.docker_compose_append,
+			self.docker_compose_class_instance_empty.append,
 			{"image": "hello-world"},
 		)
 
 	def test_append(self):
-		self.docker_compose_class_instance_empty.docker_compose_append(
+		self.docker_compose_class_instance_empty.append(
 			to_append={
 				"the_other": {
 					"image": "hello-world",
@@ -83,7 +77,7 @@ class TestDockerComposeHelpers(unittest.TestCase):
 			}
 		)
 		self.assertEqual(
-			self.docker_compose_class_instance_empty.docker_compose_list_current(),
+			self.docker_compose_class_instance_empty.list_current(),
 			{
 				"version": "3.8",
 				"services": {
