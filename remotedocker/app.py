@@ -41,4 +41,4 @@ class RemoteDockerApp(asab.Application):
 # service muze mit vic objektu
 		from .compose import DockerComposeService
 
-		self.DockerCompose = DockerComposeService(self)
+		self.DockerComposeService = DockerComposeService(self)

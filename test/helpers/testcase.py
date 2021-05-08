@@ -1,4 +1,6 @@
+import asab
 import unittest
+import logging
 from remotedocker import RemoteDockerApp
 
 class TestCase(unittest.TestCase):
